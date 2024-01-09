@@ -2,9 +2,7 @@ package com.insta.instagram.controller;
 
 import com.insta.instagram.exception.UserException;
 import com.insta.instagram.model.User;
-import com.insta.instagram.response.MessageResponse;
 import com.insta.instagram.service.UserService;
-import org.aspectj.weaver.patterns.IToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +55,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     @PutMapping("/account/edit")
-    public ResponseEntity<User> updateUserHandler(@RequestHeader("Authorization") String token,@RequestBody User user) throws UserException {
+    public ResponseEntity<User > updateUserHandler(@RequestHeader("Authorization") String token,@RequestBody User user) throws UserException {
         User reqUser = userService.findUserProfile(token);
         User updatedUser = userService.updateUserDetails(user,reqUser);
         return new ResponseEntity<>(updatedUser,HttpStatus.OK);

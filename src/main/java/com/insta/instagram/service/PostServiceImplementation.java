@@ -38,12 +38,12 @@ public class PostServiceImplementation implements PostService{
     }
 
     @Override
-    public String deletePost(Integer postId, Integer userId) throws UserException, PostException {
+    public Post deletePost(Integer postId, Integer userId) throws UserException, PostException {
         Post post = findPostById(postId);
         User user = userService.findUserById(userId);
         if(post.getUser().getId().equals(user.getId())){
             postRepository.deleteById(post.getId());
-            return "Post deleted successfully";
+            return post;
         }
         throw new PostException("You can't delete other user's post");
     }
@@ -51,9 +51,6 @@ public class PostServiceImplementation implements PostService{
     @Override
     public List<Post> findPostByUserId(Integer userId) throws UserException {
         List<Post> posts = postRepository.findByUserId(userId);
-        if(posts.size()== 0){
-            throw new UserException("This user does not have any post");
-        }
         return posts;
     }
 

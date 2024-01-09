@@ -31,6 +31,16 @@ public class GlobleException {
         ErrorDetails err = new ErrorDetails(ue.getMessage(), req.getDescription(false), LocalDateTime.now());
         return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(ChatException.class)
+    public ResponseEntity<ErrorDetails> ChatExceptionHandler(MethodArgumentNotValidException me){
+        ErrorDetails err = new ErrorDetails(me.getBindingResult().getFieldError().getDefaultMessage(), "validation error", LocalDateTime.now());
+        return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(MessageException.class)
+    public ResponseEntity<ErrorDetails> MessageExceptionHandler(MethodArgumentNotValidException me){
+        ErrorDetails err = new ErrorDetails(me.getBindingResult().getFieldError().getDefaultMessage(), "validation error", LocalDateTime.now());
+        return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException me){
         ErrorDetails err = new ErrorDetails(me.getBindingResult().getFieldError().getDefaultMessage(), "validation error", LocalDateTime.now());

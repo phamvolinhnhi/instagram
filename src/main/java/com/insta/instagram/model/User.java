@@ -33,6 +33,8 @@ public class User {
     private List<Story> stories = new ArrayList<>();
     @ManyToMany
     private List<Post> savedPost = new ArrayList<>();
+//    @ManyToMany
+//    private List<Chat> chats = new ArrayList<>();
 
     public User() {
     }
